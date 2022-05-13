@@ -17,21 +17,29 @@ It is a GUI program that plots arbitrary user-entered function.
 ```
 ## ScreenShots 🖼️
 <div align='center'>
-<img height="460px" src="https://user-images.githubusercontent.com/38363762/168396193-c929283b-a88c-407c-b390-77371111c4a1.png">
+<img height="400px" src="https://user-images.githubusercontent.com/38363762/168396193-c929283b-a88c-407c-b390-77371111c4a1.png">
 <hr/>
 </div>
 
 <div align='center'>
-<img height="460px" src="https://user-images.githubusercontent.com/38363762/168396432-e0dd2555-344e-4f29-b799-fa09a2410423.png">
+<img height="400px" src="https://user-images.githubusercontent.com/38363762/168396432-e0dd2555-344e-4f29-b799-fa09a2410423.png">
 <hr/>
 </div>
 
 <div align='center'>
-<img height="460px" src="https://user-images.githubusercontent.com/38363762/168396504-8b53af60-5706-498c-bba4-8609c87be6e1.png">
+<img height="400px" src="https://user-images.githubusercontent.com/38363762/168396504-8b53af60-5706-498c-bba4-8609c87be6e1.png">
 <hr/>
 </div>
 
 ## input validation 🖐️
+<div align='center'>
+<img height="400px" src="https://user-images.githubusercontent.com/38363762/168396573-b4296a2a-aea0-4e8a-b0b4-2f01ba0cd0c4.png">
+<hr/>
+</div>
 
-![image](https://user-images.githubusercontent.com/38363762/168396573-b4296a2a-aea0-4e8a-b0b4-2f01ba0cd0c4.png)
+<div align='center'>
+<img height="400px" src="https://user-images.githubusercontent.com/38363762/168397096-c16a3822-5d5e-4996-b720-a4bfed59d351.png">
+<hr/>
+</div>
+
 
