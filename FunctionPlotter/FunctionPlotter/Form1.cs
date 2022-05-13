@@ -143,11 +143,7 @@ namespace FunctionPlotter
         {
             for (int i =0; i< textBoxText.Length;i++) 
             {
-                if (textBoxText[i] == 'X')
-                {
-                    label5.Text = "Please enter a valid form equation. (Use small x)";
-                }
-                else if (!(textBoxText[i]>=48 && textBoxText[i]<=57) && textBoxText[i] != 'x' && textBoxText[i] != '+' && textBoxText[i] != '-' && textBoxText[i] != '/' && textBoxText[i] != '*' && textBoxText[i] != '^')
+                if (!(textBoxText[i]>=48 && textBoxText[i]<=57) && textBoxText[i] != 'x' && textBoxText[i] != '+' && textBoxText[i] != '-' && textBoxText[i] != '/' && textBoxText[i] != '*' && textBoxText[i] != '^')
                 {
                     label5.Text = "Please enter a valid form equation. e.g., 5*x^3 + 2*x";
                 }
@@ -165,6 +161,13 @@ namespace FunctionPlotter
                 } else if (textBoxText[i-1] == 'x' && (textBoxText[i] >= 48 && textBoxText[i] <= 57)) 
                 {
                     label5.Text = "Please enter a valid form equation. e.g., 5*x^3 + 2*x";
+                }
+            }
+            for (int i = 0; i < textBoxText.Length; i++)
+            {
+                if (textBoxText[i] == 'X')
+                {
+                    label5.Text = "Please enter a valid form equation. (Use small x)";
                 }
             }
         }
