@@ -24,8 +24,8 @@ namespace FunctionPlotter
         List<char> FunctionArrayNumbers = new List<char>();
         List<char> FunctionArrayOperands = new List<char>();
         List<char> orderedOperations = new List<char>();
-        List<char> FunctionArrayNumbersBackup = new List<char>();
         List<char> FunctionArrayOperandsBackup = new List<char>();
+        List<double> FunctionArrayNumbersType = new List<double>();
 
         public Form1()
         {
@@ -73,6 +73,10 @@ namespace FunctionPlotter
                 {
                     convert_Function_To_Array(textBox1.Text);
                     FunctionPlotter();
+                    FunctionArrayNumbers.Clear();
+                    FunctionArrayOperands.Clear();
+                    FunctionArrayNumbersType.Clear();
+                    FunctionArrayOperandsBackup.Clear();
                 }
             }
         }
@@ -83,6 +87,10 @@ namespace FunctionPlotter
             FunctionPlotterInitialization();
             textBox1.Text = "e.g., 5*x^3 + 2*x";
             textBox1.GotFocus += new EventHandler(RemoveText);
+            FunctionArrayNumbers.Clear();
+            FunctionArrayNumbersType.Clear();
+            FunctionArrayOperands.Clear();
+            FunctionArrayOperandsBackup.Clear();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -111,32 +119,43 @@ namespace FunctionPlotter
                 else if (FunctionString[i] == 'x') FunctionArrayNumbers.Add('x');
                 else if (FunctionString[i] >= 48 && FunctionString[i] <= 57)
                 {
-                    int j = i;
-                    while (true) 
+                    if(i == FunctionString.Length - 1)
                     {
-                        if (i != FunctionString.Length-1) 
+                        FunctionArrayNumbers.Add(FunctionString[i]);
+                    }else
+                    {
+                        int j = i+1;
+                        while (true) 
                         {
-                            j++;
-                            if (!(FunctionString[j] >= 48 && FunctionString[j] <= 57))
+                            if (FunctionString[j] >= 48 && FunctionString[j] <= 57)
                             {
-                                num = int.Parse(FunctionString.Substring(i, j-i));
-                                FunctionArrayNumbers.Add((char)num);
+                                if (j == FunctionString.Length - 1)
+                                {
+                                    num = int.Parse(FunctionString.Substring(i, j - i+1));
+                                    FunctionArrayNumbers.Add(Convert.ToChar(num + 48));
+                                    i = j;
+                                    break;
+                                }
+                                else
+                                {
+                                    j++;
+                                }
+                            }
+                            else
+                            {
+                                num = int.Parse(FunctionString.Substring(i, j - i));
+                                FunctionArrayNumbers.Add(Convert.ToChar(num + 48));
                                 i = j - 1;
                                 break;
                             }
                         }
-                        else
-                        {
-                            FunctionArrayNumbers.Add(FunctionString[i]);
-                            break;
-                        }
-                        
                     }
-
                 }
             }
-            FunctionArrayNumbersBackup = FunctionArrayNumbers.ToList();
-            FunctionArrayOperandsBackup = FunctionArrayOperands.ToList();
+            for (int i = 0; i < FunctionArrayOperands.Count; i++)
+            {
+                FunctionArrayOperandsBackup.Add(FunctionArrayOperands[i]);
+            }
         }
         /* Function Plotter Initialization *********************************************************/
         private void FunctionPlotterInitialization()
@@ -156,18 +175,32 @@ namespace FunctionPlotter
             pv.Model.Series.Clear();
             FunctionSeries fs = new FunctionSeries();
             FunctionPlotterInitialization();
-            for (int i =MIN;i<=MAX;i++) 
+            for (double i =MIN;i<=MAX;i+=0.25) 
             {
                 fs.Points.Add(new DataPoint(i, CalCulateFuctionOfX(i)));
-                FunctionArrayNumbers = FunctionArrayNumbersBackup;
-                FunctionArrayOperands = FunctionArrayOperandsBackup;
+
+                for (int j = 0; j < FunctionArrayOperandsBackup.Count; j++)
+                {
+                    FunctionArrayOperands.Add(FunctionArrayOperandsBackup[j]);
+                }
             }
             pv.Model.Series.Add(fs);
         }
         /* CalCulate FuctionOf X *******************************************************************/
-        private double CalCulateFuctionOfX(int x) 
+        private double CalCulateFuctionOfX(double x) 
         {
-            if (FunctionArrayNumbers.Count == 1) return (double)FunctionArrayNumbers[0];
+            FunctionArrayNumbersType.Clear();
+            // X Substitution
+            for (int k =0; k < FunctionArrayNumbers.Count;k++) 
+            {
+                if (FunctionArrayNumbers[k] == 'x')
+                    FunctionArrayNumbersType.Add(x);
+                else
+                    FunctionArrayNumbersType.Add(FunctionArrayNumbers[k]-48);
+            }
+
+            if (FunctionArrayNumbersType.Count == 1) return (double)FunctionArrayNumbersType[0];
+
             // ^
             for (int i =0; i<FunctionArrayOperands.Count;i++) 
             {
@@ -175,29 +208,13 @@ namespace FunctionPlotter
                 if (FunctionArrayOperands[i]=='^') 
                 {
                     FunctionArrayOperands.RemoveAt(i);
-                    // x substitution
-                    if (FunctionArrayNumbers[i] == 'x') 
-                    {
-                         operand1 = x;
-                    }
-                    else
-                    {
-                         operand1 = FunctionArrayNumbers[i];
-                    }
-
-                    if (FunctionArrayNumbers[i+1] == 'x')
-                    {
-                         operand2 = x;
-                    }
-                    else
-                    {
-                         operand2 = FunctionArrayNumbers[i+1];
-                    }
-                    FunctionArrayNumbers[i] = (char) Math.Pow((double)operand1, (double)operand2);
-                    FunctionArrayNumbers.RemoveAt(i + 1);
+                    operand1 = FunctionArrayNumbersType[i];
+                    operand2 = FunctionArrayNumbersType[i+1];
+                    FunctionArrayNumbersType[i] = Math.Pow(operand1,operand2);
+                    FunctionArrayNumbersType.RemoveAt(i + 1);
                 }
             }
-            if (FunctionArrayNumbers.Count == 1) return (double)FunctionArrayNumbers[0];
+            if (FunctionArrayNumbersType.Count == 1) return (double)FunctionArrayNumbersType[0];
             // *
             for (int i = 0; i < FunctionArrayOperands.Count; i++)
             {
@@ -205,29 +222,13 @@ namespace FunctionPlotter
                 if (FunctionArrayOperands[i] == '*')
                 {
                     FunctionArrayOperands.RemoveAt(i);
-                    // x substitution
-                    if (FunctionArrayNumbers[i] == 'x')
-                    {
-                        operand1 = x;
-                    }
-                    else
-                    {
-                        operand1 = FunctionArrayNumbers[i];
-                    }
-
-                    if (FunctionArrayNumbers[i + 1] == 'x')
-                    {
-                        operand2 = x;
-                    }
-                    else
-                    {
-                        operand2 = FunctionArrayNumbers[i + 1];
-                    }
-                    FunctionArrayNumbers[i] = (char)(operand1 * operand2);
-                    FunctionArrayNumbers.RemoveAt(i + 1);
+                    operand1 = FunctionArrayNumbersType[i];
+                    operand2 = FunctionArrayNumbersType[i + 1];
+                    FunctionArrayNumbersType[i] = (operand1 * operand2);
+                    FunctionArrayNumbersType.RemoveAt(i + 1);
                 }
             }
-            if (FunctionArrayNumbers.Count == 1) return (double)FunctionArrayNumbers[0];
+            if (FunctionArrayNumbersType.Count == 1) return (double)FunctionArrayNumbersType[0];
             // /
             for (int i = 0; i < FunctionArrayOperands.Count; i++)
             {
@@ -235,29 +236,13 @@ namespace FunctionPlotter
                 if (FunctionArrayOperands[i] == '/')
                 {
                     FunctionArrayOperands.RemoveAt(i);
-                    // x substitution
-                    if (FunctionArrayNumbers[i] == 'x')
-                    {
-                        operand1 = x;
-                    }
-                    else
-                    {
-                        operand1 = FunctionArrayNumbers[i];
-                    }
-
-                    if (FunctionArrayNumbers[i + 1] == 'x')
-                    {
-                        operand2 = x;
-                    }
-                    else
-                    {
-                        operand2 = FunctionArrayNumbers[i + 1];
-                    }
-                    FunctionArrayNumbers[i] = (char)(operand1 / operand2);
-                    FunctionArrayNumbers.RemoveAt(i + 1);
+                    operand1 = FunctionArrayNumbersType[i];
+                    operand2 = FunctionArrayNumbersType[i + 1];
+                    FunctionArrayNumbersType[i] = (operand1 / operand2);
+                    FunctionArrayNumbersType.RemoveAt(i + 1);
                 }
             }
-            if (FunctionArrayNumbers.Count == 1) return (double)FunctionArrayNumbers[0];
+            if (FunctionArrayNumbersType.Count == 1) return (double)FunctionArrayNumbersType[0];
             // +
             for (int i = 0; i < FunctionArrayOperands.Count; i++)
             {
@@ -265,29 +250,13 @@ namespace FunctionPlotter
                 if (FunctionArrayOperands[i] == '+')
                 {
                     FunctionArrayOperands.RemoveAt(i);
-                    // x substitution
-                    if (FunctionArrayNumbers[i] == 'x')
-                    {
-                        operand1 = x;
-                    }
-                    else
-                    {
-                        operand1 = FunctionArrayNumbers[i];
-                    }
-
-                    if (FunctionArrayNumbers[i + 1] == 'x')
-                    {
-                        operand2 = x;
-                    }
-                    else
-                    {
-                        operand2 = FunctionArrayNumbers[i + 1];
-                    }
-                    FunctionArrayNumbers[i] = (char)(operand1 + operand2);
-                    FunctionArrayNumbers.RemoveAt(i + 1);
+                    operand1 = FunctionArrayNumbersType[i];
+                    operand2 = FunctionArrayNumbersType[i + 1];
+                    FunctionArrayNumbersType[i] = (operand1 + operand2);
+                    FunctionArrayNumbersType.RemoveAt(i + 1);
                 }
             }
-            if (FunctionArrayNumbers.Count == 1) return (double)FunctionArrayNumbers[0];
+            if (FunctionArrayNumbersType.Count == 1) return (double)FunctionArrayNumbersType[0];
             // -
             for (int i = 0; i < FunctionArrayOperands.Count; i++)
             {
@@ -295,29 +264,13 @@ namespace FunctionPlotter
                 if (FunctionArrayOperands[i] == '-')
                 {
                     FunctionArrayOperands.RemoveAt(i);
-                    // x substitution
-                    if (FunctionArrayNumbers[i] == 'x')
-                    {
-                        operand1 = x;
-                    }
-                    else
-                    {
-                        operand1 = FunctionArrayNumbers[i];
-                    }
-
-                    if (FunctionArrayNumbers[i + 1] == 'x')
-                    {
-                        operand2 = x;
-                    }
-                    else
-                    {
-                        operand2 = FunctionArrayNumbers[i + 1];
-                    }
-                    FunctionArrayNumbers[i] = (char)(operand1 - operand2);
-                    FunctionArrayNumbers.RemoveAt(i + 1);
+                    operand1 = FunctionArrayNumbersType[i];
+                    operand2 = FunctionArrayNumbersType[i + 1];
+                    FunctionArrayNumbersType[i] = (operand1 - operand2);
+                    FunctionArrayNumbersType.RemoveAt(i + 1);
                 }
             }
-            if (FunctionArrayNumbers.Count == 1) return (double)FunctionArrayNumbers[0];
+            if (FunctionArrayNumbersType.Count == 1) return (double)FunctionArrayNumbersType[0];
 
             return 1.0;
         }
