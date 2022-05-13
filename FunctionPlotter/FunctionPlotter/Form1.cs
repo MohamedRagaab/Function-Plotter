@@ -212,6 +212,7 @@ namespace FunctionPlotter
                     operand2 = FunctionArrayNumbersType[i+1];
                     FunctionArrayNumbersType[i] = Math.Pow(operand1,operand2);
                     FunctionArrayNumbersType.RemoveAt(i + 1);
+                    i--;
                 }
             }
             if (FunctionArrayNumbersType.Count == 1) return (double)FunctionArrayNumbersType[0];
@@ -226,7 +227,9 @@ namespace FunctionPlotter
                     operand2 = FunctionArrayNumbersType[i + 1];
                     FunctionArrayNumbersType[i] = (operand1 * operand2);
                     FunctionArrayNumbersType.RemoveAt(i + 1);
+                    i--;
                 }
+          
             }
             if (FunctionArrayNumbersType.Count == 1) return (double)FunctionArrayNumbersType[0];
             // /
@@ -240,7 +243,9 @@ namespace FunctionPlotter
                     operand2 = FunctionArrayNumbersType[i + 1];
                     FunctionArrayNumbersType[i] = (operand1 / operand2);
                     FunctionArrayNumbersType.RemoveAt(i + 1);
+                    i--;
                 }
+
             }
             if (FunctionArrayNumbersType.Count == 1) return (double)FunctionArrayNumbersType[0];
             // +
@@ -254,7 +259,9 @@ namespace FunctionPlotter
                     operand2 = FunctionArrayNumbersType[i + 1];
                     FunctionArrayNumbersType[i] = (operand1 + operand2);
                     FunctionArrayNumbersType.RemoveAt(i + 1);
+                    i--;
                 }
+
             }
             if (FunctionArrayNumbersType.Count == 1) return (double)FunctionArrayNumbersType[0];
             // -
@@ -268,7 +275,9 @@ namespace FunctionPlotter
                     operand2 = FunctionArrayNumbersType[i + 1];
                     FunctionArrayNumbersType[i] = (operand1 - operand2);
                     FunctionArrayNumbersType.RemoveAt(i + 1);
+                    i--;
                 }
+
             }
             if (FunctionArrayNumbersType.Count == 1) return (double)FunctionArrayNumbersType[0];
 
