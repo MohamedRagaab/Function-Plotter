@@ -51,4 +51,6 @@ It is a GUI program that plots arbitrary user-entered function.
 <hr/>
 </div>
 
+## License
 
+> This software is licensed under MIT License, See [License](https://github.com/MohamedRagaab/Function-Plotter/blob/main/LICENSE) for more information ©MohamedRagab.
