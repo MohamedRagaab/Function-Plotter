@@ -16,7 +16,8 @@ It is a GUI program that plots arbitrary user-entered function.
 * FunctionPlotter.sln
 ```
 ## Unit Testing
-
+* Functions passed all test cases
+* You can found testing codes in this [Link]()
 <div align='center'>
 <img height="400px" src="https://user-images.githubusercontent.com/38363762/168427852-2b30bba3-e8ae-4636-adfd-d816c8f36068.png">
 <hr/>
