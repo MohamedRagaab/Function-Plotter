@@ -10,7 +10,7 @@ It is a GUI program that plots arbitrary user-entered function.
 * Download EXE file from this [Link](https://github.com/MohamedRagaab/Function-Plotter/blob/main/EXE%20app/Release.rar) 
 * Extract the file and open FunctionPlotter.exe
 ## Cloning the Repo 
-* clone the repository and open the project in visual studio code.
+* clone the repository and open the project in visual studio.
 ```
 * cd Function-Plotter
 * FunctionPlotter.sln
