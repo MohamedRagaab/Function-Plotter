@@ -1,0 +1,7 @@
+D:\Work\Master Micro Internship\Tasks\task1\DOTNET\Unit Testing\UnitTesting\UnitTesting\bin\Debug\UnitTesting.exe.config
+D:\Work\Master Micro Internship\Tasks\task1\DOTNET\Unit Testing\UnitTesting\UnitTesting\bin\Debug\UnitTesting.exe
+D:\Work\Master Micro Internship\Tasks\task1\DOTNET\Unit Testing\UnitTesting\UnitTesting\bin\Debug\UnitTesting.pdb
+D:\Work\Master Micro Internship\Tasks\task1\DOTNET\Unit Testing\UnitTesting\UnitTesting\obj\Debug\UnitTesting.csproj.AssemblyReference.cache
+D:\Work\Master Micro Internship\Tasks\task1\DOTNET\Unit Testing\UnitTesting\UnitTesting\obj\Debug\UnitTesting.csproj.CoreCompileInputs.cache
+D:\Work\Master Micro Internship\Tasks\task1\DOTNET\Unit Testing\UnitTesting\UnitTesting\obj\Debug\UnitTesting.exe
+D:\Work\Master Micro Internship\Tasks\task1\DOTNET\Unit Testing\UnitTesting\UnitTesting\obj\Debug\UnitTesting.pdb
