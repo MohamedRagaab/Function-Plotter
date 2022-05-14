@@ -15,9 +15,9 @@ It is a GUI program that plots arbitrary user-entered function.
 * cd Function-Plotter
 * FunctionPlotter.sln
 ```
-## Unit Testing
-* Functions passed all test cases
-* You can found testing codes in this [Link]()
+## Unit Testing 🔍
+* Functions passed all test cases (Using C# Consloe Application)
+* You can found testing codes in this [Link](https://github.com/MohamedRagaab/Function-Plotter/tree/main/Unit%20Testing/UnitTesting)
 <div align='center'>
 <img height="400px" src="https://user-images.githubusercontent.com/38363762/168427852-2b30bba3-e8ae-4636-adfd-d816c8f36068.png">
 <hr/>
